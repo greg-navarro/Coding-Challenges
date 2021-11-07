@@ -1,12 +1,14 @@
 import java.io.*;
 import java.util.*;
 
-class LongestPalindrome {
+public class LongestPalindrome {
     public LongestPalindrome() {
         System.out.println("hello");
     }
 
-    public String getLongestPalidrome(String input) {
+    public void printmessage() { System.out.println("message"); }
+
+    public String getLongestPalindrome(String input) {
         // decompose
         Map<Character, Integer> occurrences = new HashMap<Character, Integer>();
         for (int i = 0; i < input.length(); i++) {
@@ -26,7 +28,7 @@ class LongestPalindrome {
 
     public String recompose(Map<Character, Integer> numOccur, String mapKeys, String accum) {
         if (mapKeys.length() > 0)  {
-            StringBuilder updatedAccumBuilder;
+            StringBuilder updatedAccumBuilder = new StringBuilder();
             String updatedAccum;
             char currentKey = mapKeys.charAt(0);
             int nums = numOccur.get(currentKey);
