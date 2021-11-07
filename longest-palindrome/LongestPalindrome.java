@@ -2,26 +2,33 @@ import java.io.*;
 import java.util.*;
 
 class LongestPalindrome {
-    public static String getLongestPalidrome(String input) {
+    public LongestPalindrome() {
+        System.out.println("hello");
+    }
+
+    public String getLongestPalidrome(String input) {
         // decompose
-        Map<char, int> occurrences = new HashMap<>();
-        for (int i = 0; i < input.length; i++) {
-            if (occurrences.keys().contains(input[i])) {
-                occurrences.put(input[i], occurrences.get(input[i])+1);
+        Map<Character, Integer> occurrences = new HashMap<Character, Integer>();
+        for (int i = 0; i < input.length(); i++) {
+            char currentLetter = input.charAt(i);
+            Integer currentOccur = occurrences.get(currentLetter);
+            if (currentOccur != null) {
+                occurrences.put(currentLetter, currentOccur+1);
             } else {
-                occurrences.put(input[i], 1);
+                occurrences.put(currentLetter, 1);
             }
         }
         // recursively recompose into longest palindrome
-        String k = occurrences.keys().join();
-        String longestPalindrome = LongestPalindrome.recompose(occurrences, k, "");
+        String k = String.valueOf(occurrences.keySet().toArray());
+        String thelongestPalindrome = this.recompose(occurrences, k, "");
+        return thelongestPalindrome;
     }
 
-    public static String recompose(Map<char, int> numOccur, String mapKeys, String accum) {
-        if (mapKeys.length > 0)  {
+    public String recompose(Map<Character, Integer> numOccur, String mapKeys, String accum) {
+        if (mapKeys.length() > 0)  {
             StringBuilder updatedAccumBuilder;
             String updatedAccum;
-            Char currentKey = mapKeys[0];
+            char currentKey = mapKeys.charAt(0);
             int nums = numOccur.get(currentKey);
             if (nums % 2 == 0) {
                 for (int j = 0; j < nums/2; j++) {
@@ -29,16 +36,16 @@ class LongestPalindrome {
                 }
                 // add to ends
                 updatedAccum = updatedAccumBuilder.toString() + accum + updatedAccumBuilder.toString();
-            } else if (accum.length % 2 == 0) {
+            } else if (accum.length() % 2 == 0) {
                 for (int j = 0; j < nums; j++) {
                     updatedAccumBuilder.append(currentKey);
                 }
-                // add to center if length of accum is even
-                updatedAccum = accum.substring(0, accum.length/2) + updatedAccumBuilder.toString + accum.substring(accum.length/2);
+                // add to center if length() of accum is even
+                updatedAccum = accum.substring(0, accum.length()/2) + updatedAccumBuilder.toString() + accum.substring(accum.length()/2);
             } else {
                 updatedAccum = accum;
             }
-            LongestPalindrome.recompose(numOccur, mapKeys.substring(1), updatedAccum)
+            this.recompose(numOccur, mapKeys.substring(1), updatedAccum);
         }
         return accum;
     } 
