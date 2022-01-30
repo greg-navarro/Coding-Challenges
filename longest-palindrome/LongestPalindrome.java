@@ -22,11 +22,13 @@ public class LongestPalindrome {
         }
         // recursively recompose into longest palindrome
         String k = String.valueOf(occurrences.keySet().toArray());
+        System.out.println(k);
         String thelongestPalindrome = this.recompose(occurrences, k, "");
         return thelongestPalindrome;
     }
 
     public String recompose(Map<Character, Integer> numOccur, String mapKeys, String accum) {
+        
         if (mapKeys.length() > 0)  {
             StringBuilder updatedAccumBuilder = new StringBuilder();
             String updatedAccum;
